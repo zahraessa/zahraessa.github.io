@@ -1,44 +1,16 @@
-from pathlib import Path
-
-from flask import Flask, render_template
 from flask_frozen import Freezer
+from project import create_app
 
-app = Flask(__name__)
-app.config['FREEZER_BASE_URL'] = 'https://pages.gitlab.io/frozen-flask/'
-app.config['FREEZER_DESTINATION'] = 'public'
+# Call the application factory function to construct a Flask application
+# instance using the development configuration
+app = create_app()
+
+# Create an instance of Freezer for generating the static files from
+# the Flask application routes ('/', '/breakfast', etc.)
 freezer = Freezer(app)
 
 
-@app.cli.command()
-def freeze():
-    freezer.freeze()
-
-
-@app.cli.command()
-def serve():
-    freezer.run()
-
-
-@freezer.register_generator
-def page_generator():
-    """
-    Frozen-Flask doesn't know what to generate when a route contains a
-    variable. This function resolves this, refer to Frozen-Flask's
-    documentation for more information.
-    """
-    for template_path in app.jinja_env.list_templates():
-        try:
-            page = Path(template_path).relative_to("content").stem
-            yield 'pages', {'page': page}
-        except ValueError:
-            pass
-
-
-@app.route('/')
-def root():
-    return render_template('root.html', pages=page_generator())
-
-
-@app.route('/<page>/')
-def pages(page):
-    return render_template(str(Path('content') / (page + '.html')))
+if __name__ == '__main__':
+    # Run the development server that generates the static files
+    # using Frozen-Flask
+    freezer.run(debug=True)

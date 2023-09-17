@@ -1,53 +1,107 @@
-![Build Status](https://gitlab.com/dAnjou/frozen-flask-for-gitlab-pages/badges/master/build.svg)
+## Overview
 
----
+This Flask application displays my family's favorite recipes!  [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) is
+used to generate the static files based on the routes specified in the Flask app.  These static files are hosted on
+[Netlify](https://www.netlify.com):
 
-Example [Frozen-Flask](http://pythonhosted.org/Frozen-Flask/) website using GitLab Pages.
+![Kennedy Family Recipes](project/static/img/flask_recipe_app_screenshot.png?raw=true "Kennedy Family Recipes")
 
-Learn more about GitLab Pages at https://pages.gitlab.io and the official
-documentation https://docs.gitlab.com/ce/user/project/pages/.
+For details on how this Flask app generates static files, check out the [Generating a Static Site with Flask and Deploying it to Netlify](https://testdriven.io/blog/) blog post on [TestDriven](https://testdriven.io/).
 
----
+## Website
 
-## GitLab CI
+[https://www.kennedyrecipes.com/](https://www.kennedyrecipes.com/)
 
-This project's static Pages are built by [GitLab CI][ci], following the steps
-defined in [`.gitlab-ci.yml`](.gitlab-ci.yml).
+## Installation Instructions
 
-## Building locally
+Pull down the source code from this GitLab repository:
 
-To work locally with this project, you'll have to follow the steps below:
+```sh
+git clone git@gitlab.com:patkennedy79/flask-recipe-app.git
+```
 
-1. Fork, clone or download this project
-1. Install [Frozen-Flask](http://pythonhosted.org/Frozen-Flask/)
-1. Generate the website: `FLASK_APP=app.py env/bin/flask freeze`
-1. Preview your project: `FLASK_APP=app.py env/bin/flask serve`
-1. Add content
+Create a new virtual environment:
 
-Read more at Frozen-Flask's [documentation](http://pythonhosted.org/Frozen-Flask/).
+```sh
+$ cd flask-recipe-app
+$ python3 -m venv venv
+```
 
-## GitLab User or Group Pages
+Activate the virtual environment:
 
-To use this project as your user/group website, you will need two additional
-steps:
+```sh
+$ source venv/bin/activate
+```
 
-- rename your project to `namespace.gitlab.io`, where `namespace` is
-your `username` or `groupname`. This can be done by navigating to your
-project's **Settings**.
-- change the `FREEZER_BASE_URL` in `app.py`.
+Install the python packages in requirements.txt:
 
-Read more about [user/group Pages][userpages] and [project Pages][projpages].
+```sh
+(venv) $ pip install -r requirements.txt
+```
 
-## Did you fork this project?
+## Run the Development Server
 
-If you forked this project for your own use, please go to your project's
-**Settings** and remove the forking relationship, which won't be necessary
-unless you want to contribute back to the upstream project.
+Run development server to serve the Flask application:
 
----
+```sh
+(venv) $ flask --app app --debug run
+```
 
-Forked from https://gitlab.com/dAnjou/frozen-flask-for-gitlab-pages
+Navigate to 'http://127.0.0.1:5000/' in your favorite web browser to view the website!
 
-[ci]: https://about.gitlab.com/gitlab-ci/
-[userpages]: https://docs.gitlab.com/ce/user/project/pages/introduction.html#user-or-group-pages
-[projpages]: https://docs.gitlab.com/ce/user/project/pages/introduction.html#project-pages
+## Key Python Modules Used
+
+* **Flask**: micro-framework for web application development which includes the following dependencies:
+  * click: package for creating command-line interfaces (CLI)
+  * itsdangerous: cryptographically sign data 
+  * Jinja2: templating engine
+  * MarkupSafe: escapes characters so text is safe to use in HTML and XML
+  * Werkzeug: set of utilities for creating a Python application that can talk to a WSGI server
+* **Frozen-Flask** - generates static files from Flask routes
+* **Markdown** - text-to-HTML conversion tool
+* **pytest**: framework for testing Python projects
+* **pytest-cov**: pytest extension for running coverage.py to check code coverage of tests
+* **flake8**: static analysis tool
+
+This application is written using Python 3.11.0.
+
+## Unit Testing
+
+To run all the tests:
+
+```sh
+(venv) $ python -m pytest
+```
+
+To check the code coverage of the tests:
+
+```sh
+(venv) $ python -m pytest --cov-report term-missing --cov=project
+```
+
+## Adding a New Recipe
+
+1. Add the new image to *project/static/img/*.
+2. Copy *project/recipes/template/markdown/recipe_starter.md* to a new file in the same directory with the recipe name as the filename.
+3. Update the new *project/recipes/template/markdown/<recipe_name>.md* file with the recipe description, ingredients, and steps.
+4. Generate the HTML file for the new recipe:
+```sh
+$ python project/recipes/templates/md_to_html.py
+```
+5. Add a new section to the applicable recipe section HTML file (i.e. *project/recipes/template/recipes/baked_good.html*, *project/recipes/template/recipes/dinner.html*, etc.).
+6. Add the recipe name to the top of *project/recipes/routes.py*.
+
+Lastly, run the tests to make sure everything is working as expected:
+```sh
+(venv) $ python -m pytest
+```
+
+### Build the Static Files
+
+In the top-level directory, run the build script:
+
+```sh
+(venv) $ python build.py
+```
+
+The static files are generated in the */project/build/* directory, which can then be hosted on Netlify.
