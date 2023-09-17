@@ -57,17 +57,17 @@ export const About = () => {
             <h2>About</h2>
             {page ? page.text : null}
             <div className="link-container">
-              <a href="mailto:joannw.photos@gmail.com">
-                joannw.photos@gmail.com
+              <a href="mailto:zahraessa@zahraessa.com">
+                zahraessa@zahraessa.com
               </a>
             </div>
             <div className="link-container">
               <a
-                href="https://www.instagram.com/joannwphotos/?hl=en"
+                href="https://www.instagram.com/zahraessa__/?hl=en"
                 target="_blank"
               >
                 <i className="fab fa-instagram"></i>
-                <p>joannwphotos</p>
+                <p>zahraessa__</p>
               </a>
             </div>
           </div>
