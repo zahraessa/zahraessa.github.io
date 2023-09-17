@@ -11,7 +11,7 @@ def homepage():
 
 @app.route('/<string:page_name>')
 def html_page(page_name):
-    return render_template(templates/page_name)
+    return render_template(page_name)
 
 
 # def write_to_file(data):
