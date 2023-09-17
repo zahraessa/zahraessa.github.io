@@ -27,8 +27,6 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --mode=development --watch",
     "start-api": "venv/bin/flask run --no-debugger",
