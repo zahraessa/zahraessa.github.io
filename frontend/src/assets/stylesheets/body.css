@@ -1,0 +1,23 @@
+.main-body{
+  padding: 10px 5% 0;
+  min-height: 100vh;
+}
+
+.filter-list{
+  padding-top: 20px;
+  display: flex; 
+  text-transform: uppercase;
+}
+
+.filter-list li{
+  margin-right: 15px;
+  color: #969696;
+  font-size: 11px;
+  letter-spacing: 5px;
+  cursor: pointer;
+  transition: opacity .4s ease-out;
+}
+
+.filter-list li:hover{
+  opacity: 0.6;
+}
