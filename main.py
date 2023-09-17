@@ -1,11 +1,12 @@
 import csv
 from flask import Flask, render_template, url_for, request, redirect
+import templates
 app = Flask(__name__)
 
 
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    return render_template('templates/index.html')
 
 
 @app.route('/<string:page_name>')
