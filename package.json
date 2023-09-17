@@ -21,9 +21,14 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "gh-pages": "^6.0.0",
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --mode=development --watch",
     "start-api": "venv/bin/flask run --no-debugger",
@@ -42,5 +47,5 @@
   "bugs": {
     "url": "https://github.com/zahraessa/zahraessa.github.io/issues"
   },
-  "homepage": "https://github.com/zahraessa/zahraessa.github.io#readme"
+  "homepage": "https://github.com/zahraessa/zahraessa.github.io"
 }
