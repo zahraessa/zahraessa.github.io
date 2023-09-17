@@ -18,7 +18,7 @@ See the site in action [here][example].
 Licensed under the [WTFPL][].
 
 [article]: http://www.stevenloria.com/hosting-static-flask-sites-for-free-on-github-pages/
-[example]: http://stevenloria.com/flask-ghpages-example
+[example]: http://stevenloria.com/zahraessa.github.io
 [Flask]: http://flask.pocoo.org/
 [WTFPL]: http://www.wtfpl.net/
 [Github Pages]: http://pages.github.com/
